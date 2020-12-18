@@ -6,7 +6,23 @@ In our game there are 24 levels,
 in each level there are different quantity of agents and a different time limit.  
 Every time the agent catches a pokemon, the game creates a new pokemon on the graph.  
 
-![picture](images/1.png)  
+#### The game menu:   
+![picture](images/1.png)    
+   • select a level from 0 to 23:   
+![picture](images/2.png)   
+• after selecting the level, press play to start :  
+![picture](images/3.png)  
+
+• the game will start :  
+
+![picture](images/6.png)  
+• Exit game :  
+![picture](images/5.png)  
+   
+ the playes :   
+ ![picture](images/red.png) - The agent.  
+ ![picture](images/yello.png) - The pokemon.  
+   
 ## Algorithm : 
 
 
