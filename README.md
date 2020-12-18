@@ -16,7 +16,7 @@ Every time the agent catches a pokemon, the game creates a new pokemon on the gr
 • the game will start :  
 
 ![picture](images/6.png)  
-• Exit game :  
+• by selecting “Exit” – the game window will be closed:  
 ![picture](images/5.png)  
    
  the playes :   
