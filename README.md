@@ -9,7 +9,7 @@ Every time the agent catches a pokemon, the game creates a new pokemon on the gr
 #### The game menu:   
 ![picture](images/1.png)    
    • select a level from 0 to 23:   
-![picture](images/2.png)   
+![picture](images/7.png)   
 • after selecting the level, press play to start :  
 ![picture](images/3.png)  
 
