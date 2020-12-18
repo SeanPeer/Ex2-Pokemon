@@ -6,7 +6,7 @@ In our game there are 24 levels,
 in each level there are different quantity of agents and a different time limit.  
 Every time the agent catches a pokemon, the game creates a new pokemon on the graph.  
 
-
+![picture](Ex2-Pokemon/images/1.png)  
 ## Algorithm : 
 
 
