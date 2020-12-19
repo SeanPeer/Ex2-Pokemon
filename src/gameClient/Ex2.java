@@ -9,11 +9,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.swing.*;
+
 import java.awt.*;
+import java.awt.event.WindowEvent;
 import java.util.*;
 import java.util.List;
 
-public class Ex2 implements Runnable{
+import static javax.swing.JOptionPane.showMessageDialog;
+
+public class Ex2 implements Runnable {
     private static MyFrame _win;
     private static Arena _ar;
 
@@ -70,11 +74,11 @@ public class Ex2 implements Runnable{
 
 
         game.startGame();
-        _win.setTitle("Ex2 - OOP: (our Solution) "+game.toString());
-        int ind=0;
-        long dt=100;
+        _win.setTitle("Ex2 - OOP: (our Solution) " + game.toString());
+        int ind = 0;
+        long dt = 100;
 
-        while(game.isRunning()) {
+        while (game.isRunning()) {
 
             try {
                 moveAgants(game, gg);
@@ -83,18 +87,21 @@ public class Ex2 implements Runnable{
             }
 
             try {
-                if(ind%1==0) {_win.repaint();}
+                if (ind % 1 == 0) {
+                    _win.repaint();
+                }
                 Thread.sleep(dt);
                 ind++;
-            }
-            catch(Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         String res = game.toString();
 
         System.out.println(res);
-        System.exit(0);
+
+        showMessageDialog(null, "The Game is Over !\nYou Can Close The Game Window Now :)");
+//        System.exit(0);
     }
 
 
@@ -132,8 +139,7 @@ public class Ex2 implements Runnable{
                 graph.connect(src, dest, w);
             }
 
-        }
-        catch (JSONException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 
@@ -144,22 +150,20 @@ public class Ex2 implements Runnable{
 
 
     private static void find_agent_paths(List<CL_Agent> agents, List<CL_Pokemon> fruits) {
-    	
-    	///////////////////for loops to check , debug////////////////////////////////
-    	for (int i = 0; i < fruits.size(); i++)
-    	{
 
-			System.out.print(fruits.get(i));
-	    	System.out.println("   on edge : "+fruits.get(i).get_edge().getSrc()+"--"+fruits.get(i).get_edge().getDest());
-		}
-    	for (int i = 0; i <agents.size(); i++)
-    	{
+        ///////////////////for loops to check , debug////////////////////////////////
+        for (int i = 0; i < fruits.size(); i++) {
 
-    		System.out.print("agent munber "+agents.get(i).getID());
-        	System.out.println("   in node src"+agents.get(i).getSrcNode());
-		}
+            System.out.print(fruits.get(i));
+            System.out.println("   on edge : " + fruits.get(i).get_edge().getSrc() + "--" + fruits.get(i).get_edge().getDest());
+        }
+        for (int i = 0; i < agents.size(); i++) {
+
+            System.out.print("agent munber " + agents.get(i).getID());
+            System.out.println("   in node src" + agents.get(i).getSrcNode());
+        }
 // //////////////////////////////////////////////////////////////////////////////////////////////////////////   
-    	
+
 
         pair = new HashMap<>(); // { agent_id = fuirt }
 
@@ -175,34 +179,34 @@ public class Ex2 implements Runnable{
 
                 if (!agents.get(j).getStatus()) {
 
-                   
-                    	for (int k = 0; k < fruits.size(); k++) {//
-                        if (!fruits.get(k).getStatus()) {
-                        	
 
-                            double d = algo.shortestPathDist(agents.get(j).getSrcNode(),fruits.get(k).get_edge().getSrc())
+                    for (int k = 0; k < fruits.size(); k++) {//
+                        if (!fruits.get(k).getStatus()) {
+
+
+                            double d = algo.shortestPathDist(agents.get(j).getSrcNode(), fruits.get(k).get_edge().getSrc())
                                     + fruits.get(k).get_edge().getWeight();////fruits.get(j).getval();
                             //System.out.println("out if");
 
                             d = d / fruits.get(k).getValue(); // consider agent speed
 
-                            System.out.print("  agent id = "+j);
-                            System.out.print("   d = "+d);
-                            System.out.println(" fruit num  k = "+k);
+                            System.out.print("  agent id = " + j);
+                            System.out.print("   d = " + d);
+                            System.out.println(" fruit num  k = " + k);
 
                             if (d < min) {
                                 min = d;
                                 System.out.println("inter  if");
-                                System.out.print("d = "+d);
-                                System.out.print("   k = "+k);
-                                System.out.print("   f = "+fruits.get(k));
-                                System.out.println("  agent id = "+j);
+                                System.out.print("d = " + d);
+                                System.out.print("   k = " + k);
+                                System.out.print("   f = " + fruits.get(k));
+                                System.out.println("  agent id = " + j);
                                 f = fruits.get(k);
                                 a = agents.get(j).getID();
                                 ag = agents.get(j);
-                               
+
 //                                System.out.println("time to end : "+game.);
-                                
+
                             }
                         }
 
@@ -215,15 +219,15 @@ public class Ex2 implements Runnable{
             assert f != null;
             f.setStatus(true);
             ag.setStatus(true);
-            System.out.println(" pair number "+i+" : agent in src : "+ag.getSrcNode()+" to  fruit in edge : "+f.get_edge().getSrc()+" - "+f.get_edge().getDest()+" distance = "+min);
+            System.out.println(" pair number " + i + " : agent in src : " + ag.getSrcNode() + " to  fruit in edge : " + f.get_edge().getSrc() + " - " + f.get_edge().getDest() + " distance = " + min);
             pair.put(a, f);
-            
+
 //            System.out.println("agent num "+agents.get(j).getID()+ "srcNode num : "+agents.get(j).getSrcNode());
 //            System.out.println("fruit : "+fruits.get(k).get_edge().getSrc()+" - "+fruits.get(k).get_edge().getDest());
 //            System.out.println("minimum dist = "+d);
             List<node_data> l = algo.shortestPath(ag.getSrcNode(), f.get_edge().getSrc());
             l.add(gg.getNode(f.get_edge().getDest()));
-            System.out.println(a+" agent go to "+f.get_edge().getDest()+"node");
+            System.out.println(a + " agent go to " + f.get_edge().getDest() + "node");
             System.out.println(l);
 
             paths.put(a, l);
@@ -238,6 +242,7 @@ public class Ex2 implements Runnable{
     /**
      * Moves each of the agents along the edge,
      * in case the agent is on a node the next destination (next edge) is chosen (randomly).
+     *
      * @param game
      * @param gg
      * @param
@@ -250,15 +255,15 @@ public class Ex2 implements Runnable{
 
         _ar.setAgents(agents);
         //ArrayList<OOP_Point3D> rs = new ArrayList<OOP_Point3D>();
-        String fs =  game.getPokemons();
-       
+        String fs = game.getPokemons();
+
         List<CL_Pokemon> fruit_list = Arena.json2Pokemons(fs); // list of pokemons
 
         _ar.setPokemons(fruit_list);
-      
+
 //        find_agent_paths(agents, fruit_list); this is not the first run
 
-        for(int i = 0; i < agents.size() ;i++) {
+        for (int i = 0; i < agents.size(); i++) {
 
             CL_Agent ag = agents.get(i);
 
@@ -277,7 +282,7 @@ public class Ex2 implements Runnable{
              *
              */
 
-            if(dest==-1) {
+            if (dest == -1) {
 
                 count_dest++;
 
@@ -288,37 +293,37 @@ public class Ex2 implements Runnable{
                  *
                  */
 
-            // dest = nextNode(gg, src);
+                // dest = nextNode(gg, src);
 
                 if (paths.get(id).isEmpty() || paths.get(id).size() == 1) {
                     agent_eat_fruit = true;
 //                    test.put(agent_eat_fruit, id);
 //                    find_agent_paths(agents, fruit_list);
                 }
-                
-               // game.chooseNextEdge(ag.getID(), nextNode(gg, src));
+
+                // game.chooseNextEdge(ag.getID(), nextNode(gg, src));
                 if (count_dest >= agents.size() && agent_eat_fruit) {
                     count_dest = 0;
                     System.out.println("count dest");
                     find_agent_paths(agents, fruit_list);
 
                     game.chooseNextEdge(ag.getID(), paths.get(id).remove(1).getKey());
-                }
-                else if (paths.get(id).size() > 1){
+                } else if (paths.get(id).size() > 1) {
                     System.out.println("id: " + id + ", agent speed: " + ag.getSpeed());
                     game.chooseNextEdge(ag.getID(), paths.get(id).remove(1).getKey());
                 }
 
-              //  System.out.println("Agent: "+id+", val: "+v+"   turned to node: "+dest);
+                //  System.out.println("Agent: "+id+", val: "+v+"   turned to node: "+dest);
 
             }
         }
 
-       // Thread.sleep(500000);
+        // Thread.sleep(500000);
     }
 
     /**
      * a very simple random walk implementation!
+     *
      * @param g
      * @param src
      * @return
@@ -328,9 +333,12 @@ public class Ex2 implements Runnable{
         Collection<edge_data> ee = g.getE(src);
         Iterator<edge_data> itr = ee.iterator();
         int s = ee.size();
-        int r = (int)(Math.random()*s);
-        int i=0;
-        while(i<r) {itr.next();i++;}
+        int r = (int) (Math.random() * s);
+        int i = 0;
+        while (i < r) {
+            itr.next();
+            i++;
+        }
         ans = itr.next().getDest();
         return ans;
     }
@@ -364,17 +372,17 @@ public class Ex2 implements Runnable{
             line = new JSONObject(info);
             JSONObject ttt = line.getJSONObject("GameServer");
             int rs = ttt.getInt("agents");
-            
+
             System.out.println(info);
 
             System.out.println(game.getPokemons());
             int src_node = 0;  // arbitrary node, you should start at one of the pokemon
 
-            for(int a = 0;a<cl_fs.size();a++) {
-                Arena.updateEdge(cl_fs.get(a),gg);
+            for (int a = 0; a < cl_fs.size(); a++) {
+                Arena.updateEdge(cl_fs.get(a), gg);
             }
 
-            for(int a = 0;a<rs;a++) {
+            for (int a = 0; a < rs; a++) {
 
                 double max = Double.MIN_VALUE;
                 CL_Pokemon temp = null;
@@ -398,13 +406,14 @@ public class Ex2 implements Runnable{
 
                 assert temp != null;
                 temp.setFirstLocation(true);
-               
-              //  System.out.println("a_id: " + a +"a_edge: "+ttt.get(key)+ "fruit src " + temp.get_edge().getSrc());
+
+                //  System.out.println("a_id: " + a +"a_edge: "+ttt.get(key)+ "fruit src " + temp.get_edge().getSrc());
 
                 game.addAgent(temp.get_edge().getSrc());
             }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        catch (JSONException e) {e.printStackTrace();}
 
         find_agent_paths(Arena.getAgents(game.getAgents(), gg), Arena.json2Pokemons(game.getPokemons()));
     }

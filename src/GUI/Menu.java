@@ -17,7 +17,7 @@ public class Menu extends JFrame implements ActionListener {
     JButton start;
     JButton our_id;
     JButton exit;
-    
+
     JComboBox comboBox;
     JFrame frame;
     JPanel panel;
@@ -27,7 +27,7 @@ public class Menu extends JFrame implements ActionListener {
     JLabel lvlLabel;
     JLabel idLabel;
 
-
+    public static boolean flag = true;
 
     public Menu() {
 
@@ -79,8 +79,8 @@ public class Menu extends JFrame implements ActionListener {
         /**
          * Exit Button
          */
-        exit.addActionListener(e -> frame.dispose());
-        exit.setBounds(100,200,100,25);
+        exit.addActionListener(e -> System.exit(0));
+        exit.setBounds(100, 200, 100, 25);
         panel.add(exit);
 
 
@@ -93,16 +93,16 @@ public class Menu extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e1) {
         Ex2 ex2 = new Ex2();
         if (e1.getSource() == comboBox) {
-           ex2.setChoice(comboBox.getSelectedIndex());//Saving the level and using a setter to set Ex2 with the level that selected
+            ex2.setChoice(comboBox.getSelectedIndex());//Saving the level and using a setter to set Ex2 with the level that selected
         }
     }
 
-    public void initialize(){
+    public void initialize() {
         panel = new JPanel();
         frame = new JFrame("Pokemon Game");
         picachu = new ImageIcon("Pokemon-pic.jpg");
         welcomeLabel = new JLabel("Welcome to our Pokemon Algorithm Game !");
-        lvlLabel = new JLabel("Choose level ");
+        lvlLabel = new JLabel("Select level ");
         comboBox = new JComboBox(lvl);
         start = new JButton("Play");
         idLabel = new JLabel("Developers ID");
@@ -112,6 +112,8 @@ public class Menu extends JFrame implements ActionListener {
 
     public static void main(String[] args) {
         new Menu();
+
+
     }
 
 
